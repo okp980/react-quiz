@@ -22,19 +22,20 @@ export const QuizQuestions = () => {
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
     const [question, setQuestion] = useState([]);
-    const [ans, setAns] = useState({})
+    //const [ans, setAns] = useState({})
     //const ans = dataState.data[currentQuestion].answer
 
     const handleSelections = (e) => {
-        setAns({ ...ans, [e.target.value]: e.target.checked});
+       // setAns({ ...ans, [e.target.value]: e.target.checked});
         const qarr = question.map((q)=>{
-            return {...q, ans}
+           // returns an added property called selected that holds the value of the answer that was selected
+			return { ...q, selected: e.target.value };
         })
         setQuestion(qarr)
         console.log(question) 
     }
 
-    console.log(ans)
+    //console.log(ans)
     
     useEffect(()=> {
         setQuestion(dataState.data)
@@ -80,6 +81,7 @@ export const QuizQuestions = () => {
                                             value={option.id}
                                             color="primary"
                                             onChange={handleSelections}
+                                            checked={!!option?.selected} // should return a checked checkbox if selected is true
                                             />
                                         }
                                         label={option.answer_text}
